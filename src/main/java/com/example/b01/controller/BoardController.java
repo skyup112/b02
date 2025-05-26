@@ -21,7 +21,7 @@ public class BoardController {
     private final BoardService boardService;
 
     @GetMapping("/list")
-    public void list(Model model, @ModelAttribute("pageRequestDTO") PageRequestDTO pageRequestDTO) {
+    public void list(Model model,PageRequestDTO pageRequestDTO) {
         PageResponseDTO<BoardDTO> responseDTO = boardService.list(pageRequestDTO);
         log.info(responseDTO);
         model.addAttribute("responseDTO", responseDTO);
@@ -33,7 +33,7 @@ public class BoardController {
 
     }
     @PostMapping("/register")
-    public String register(@Valid @ModelAttribute("boardDTO") BoardDTO boardDTO, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+    public String register(@Valid BoardDTO boardDTO, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
         log.info("Board Post register");
         if (bindingResult.hasErrors()) {
             log.error("Binding Error");
@@ -47,15 +47,17 @@ public class BoardController {
 
     }
     @GetMapping({"/read","/modify"})
-    public void read(@RequestParam Long bno,@ModelAttribute("pageRequestDTO") PageRequestDTO pageRequestDTO ,Model model) {
+    public void read( Long bno,PageRequestDTO pageRequestDTO ,Model model) {
         BoardDTO boardDTO = boardService.readOne(bno);
         log.info(boardDTO);
         model.addAttribute("dto", boardDTO);
 
     }
     @PostMapping("/modify")
-    public String modify(@ModelAttribute("pageRequestDTO") PageRequestDTO pageRequestDTO, @Valid @ModelAttribute("boardDTO") BoardDTO boardDTO, RedirectAttributes redirectAttributes,BindingResult bindingResult) {
+    public String modify(PageRequestDTO pageRequestDTO,@Valid BoardDTO boardDTO, RedirectAttributes redirectAttributes,BindingResult bindingResult) {
         log.info("Board Post modify");
+//        log.info("BoardDTO.title: {}", boardDTO.getTitle());
+//        log.info("BoardDTO.content: {}", boardDTO.getContent());
 
         if (bindingResult.hasErrors()) {
             log.error("Binding Error");
