@@ -24,7 +24,7 @@ public class Board extends BaseEntity{
     private String writer;
 
 //    Update 기능
-    public void Change(String title, String content) {
+    public void change(String title, String content) {
         this.title = title;
         this.content = content;
     }

@@ -46,7 +46,7 @@ public class BoardRepositoryTest {
         Long bno = 100L;
         Optional<Board> result = boardRepository.findById(bno);
         Board board = result.orElseThrow();
-        board.Change("update..title 100","update..content 100");
+        board.change("update..title 100","update..content 100");
         boardRepository.save(board);
         log.info(board);
 

@@ -10,6 +10,7 @@ import org.springframework.data.domain.Sort;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.Arrays;
 
 @Data
 @AllArgsConstructor
@@ -36,8 +37,16 @@ public class PageRequestDTO {
     }
 
     public Pageable getPageable(String... props) {
-        return PageRequest.of(this.page - 1, this.size, Sort.by(props).descending());
+        return PageRequest.of(this.page-1, this.size, Sort.by(props).descending());
+//         bno, title 두개를 내림차순으로 정렬 단,bno가 최우선 순위로 내림차순 진행
+//        Sort sort = Sort.by(
+//                Arrays.stream(props)
+//                        .map(Sort.Order::desc)
+//                        .toList()       //Sort 객체 만듬
+//        );
+//        return PageRequest.of(this.page - 1, this.size, sort);
     }
+
 
     public String getLink() {
         if (link == null) {

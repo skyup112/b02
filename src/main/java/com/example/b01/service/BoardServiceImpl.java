@@ -45,7 +45,8 @@ public class BoardServiceImpl implements BoardService {
     public void modify(BoardDTO boardDTO) {
         Optional<Board> result=boardRepository.findById(boardDTO.getBno());
         Board board=result.orElseThrow();
-        board.Change(boardDTO.getTitle(), boardDTO.getContent());
+        board.change(boardDTO.getTitle(), boardDTO.getContent());
+//        log.info(board.toString());
         boardRepository.save(board);
 
     }
@@ -62,7 +63,7 @@ public class BoardServiceImpl implements BoardService {
 
         String keyword=pageRequestDTO.getKeyword();
 
-        Pageable pageable=pageRequestDTO.getPageable("bno");
+        Pageable pageable=pageRequestDTO.getPageable("bno","title");
 
         Page<Board> result=boardRepository.searchAll(types,keyword,pageable);
 
